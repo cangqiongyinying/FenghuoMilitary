@@ -15,6 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity.MineLogin.LoginActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".Activity.MineLogin.MineCollectionActivity" />
+        <activity android:name=".Activity.MineLogin.MineMessageActivity" />
+        <activity android:name=".Activity.MineLogin.SetActivity"></activity>
     </application>
 
 </manifest>
