@@ -33,4 +33,14 @@
     <string name="system_set">系统设置</string>
     <string name="system_text_size">字体大小</string>
     <string name="inform_set">通知设置</string>
+    <string name="clear_cache">清理缓存</string>
+    <string name="no_pic_mode">无图模式</string>
+    <string name="night_mode">夜间模式</string>
+    <string name="offline_read">离线阅读</string>
+    <string name="others">其它</string>
+    <string name="about_us">关于我们</string>
+    <string name="new_version_check">新版本检测</string>
+    <string name="feedback">意见反馈</string>
+    <string name="fenghuo_camp">烽火营</string>
+    <string name="rings">圈子</string>
 </resources>

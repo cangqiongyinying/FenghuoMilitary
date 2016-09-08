@@ -12,9 +12,11 @@ import com.jiangxin.fenghuomilitary.Fragment.RecommendFragment;
 import com.jiangxin.fenghuomilitary.Fragment.RingsFragment;
 import com.jiangxin.fenghuomilitary.Fragment.VideoFragment;
 import com.jiangxin.fenghuomilitary.R;
+import com.liang.OkHttpLibrary.OkHttpUtils;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static boolean netConnect;
     private FragmentManager mSupportFragmentManager;
     private  RecommendFragment recommendFragment;
     private  VideoFragment videoFragment;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        netConnect= OkHttpUtils.isNetworkConnected(this);
         initView();
     }
 

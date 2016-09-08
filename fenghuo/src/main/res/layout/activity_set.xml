@@ -37,17 +37,18 @@
         android:id="@+id/system_text_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite">
+        android:clickable="true"
+        android:background="@color/colorWhite"
+        android:padding="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorText"
-            android:padding="10dp"
             android:text="@string/system_text_size"/>
         <TextView
+            android:id="@+id/system_text_size_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:layout_alignParentRight="true"
             android:textColor="@color/colorText" />
     </RelativeLayout>
@@ -56,9 +57,110 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_clicked"
-        android:layout_marginTop="2dp"
-        android:padding="16dp"
+        android:layout_marginTop="3dp"
+        android:padding="10dp"
         android:text="@string/inform_set"
         android:gravity="left|center_vertical"
         android:drawableRight="@drawable/list_icon" />
+    <RelativeLayout
+        android:id="@+id/clear_cache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:clickable="true"
+        android:background="@drawable/item_clicked"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
+            android:text="@string/clear_cache"/>
+        <TextView
+            android:id="@+id/system_cache_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/colorText"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/night_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_clicked"
+        android:layout_marginTop="3dp"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
+            android:text="@string/night_mode"
+            android:layout_centerVertical="true" />
+        <Switch
+            android:id="@+id/switch_night_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/colorText"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/no_pic_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_clicked"
+        android:layout_marginTop="3dp"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
+            android:text="@string/no_pic_mode"
+            android:layout_centerVertical="true" />
+        <Switch
+            android:id="@+id/switch_no_pic_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/colorText"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/off_line_read_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_clicked"
+        android:layout_marginTop="3dp"
+        android:text="@string/offline_read"
+        android:padding="10dp"
+        android:textColor="@color/colorText"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/others"/>
+    <TextView
+        android:id="@+id/about_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_clicked"
+        android:layout_marginTop="3dp"
+        android:text="@string/about_us"
+        android:padding="10dp"
+        android:textColor="@color/colorText"/>
+    <TextView
+        android:id="@+id/new_version_check"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_clicked"
+        android:layout_marginTop="3dp"
+        android:text="@string/new_version_check"
+        android:padding="10dp"
+        android:textColor="@color/colorText"/>
+    <TextView
+        android:id="@+id/feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_clicked"
+        android:layout_marginTop="3dp"
+        android:text="@string/feedback"
+        android:padding="10dp"
+        android:textColor="@color/colorText"/>
 </LinearLayout>
