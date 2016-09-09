@@ -20,7 +20,9 @@
             android:launchMode="singleTop" />
         <activity android:name=".Activity.MineLogin.MineCollectionActivity" />
         <activity android:name=".Activity.MineLogin.MineMessageActivity" />
-        <activity android:name=".Activity.MineLogin.SetActivity"></activity>
+        <activity android:name=".Activity.MineLogin.SetActivity" />
+        <activity android:name=".Activity.RingsInfo.RingsInfoActivity" android:windowSoftInputMode="stateHidden" >
+        </activity>
     </application>
 
 </manifest>

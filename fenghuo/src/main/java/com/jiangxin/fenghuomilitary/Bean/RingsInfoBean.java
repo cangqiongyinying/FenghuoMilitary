@@ -341,6 +341,7 @@ public class RingsInfoBean {
         public static class ContentBean {
             private String type;
             private String content;
+            private String src;
 
             public String getType() {
                 return type;
@@ -356,6 +357,14 @@ public class RingsInfoBean {
 
             public void setContent(String content) {
                 this.content = content;
+            }
+
+            public String getSrc() {
+                return src;
+            }
+
+            public void setSrc(String src) {
+                this.src = src;
             }
         }
 

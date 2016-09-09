@@ -2,20 +2,26 @@ package com.jiangxin.fenghuomilitary.Fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.jiangxin.fenghuomilitary.Activity.MainActivity;
+import com.jiangxin.fenghuomilitary.Activity.RingsInfo.RingsInfoActivity;
 import com.jiangxin.fenghuomilitary.Bean.RingsBean;
 import com.jiangxin.fenghuomilitary.R;
 import com.liang.OkHttpLibrary.IOKCallBack;
@@ -32,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 圈子界面
  */
 public class RingsFragment extends BaseFragment implements IOKCallBack{
-    public static final String HTTP_HEAD="http://if.fenghuo001.com";
+
     public static final String HTTP_CONTEXT_URL="/api1.3/topic.php?code=quan_topic&qid=1059&page=";
     private int page=1;
     private LayoutInflater mInflater;
@@ -68,7 +74,6 @@ public class RingsFragment extends BaseFragment implements IOKCallBack{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         mInflater=inflater;
         View view=inflater.inflate(R.layout.fragment_rings, container, false);
         initView(view);
@@ -77,18 +82,30 @@ public class RingsFragment extends BaseFragment implements IOKCallBack{
     }
 
     private void httpLoad() {
-        OkHttpUtils.newInstance().start(HTTP_HEAD+HTTP_CONTEXT_URL+page).callback(this);
+        OkHttpUtils.newInstance().start(MainActivity.HTTP_HEAD+HTTP_CONTEXT_URL+page).callback(this);
     }
 
     private void initView(View view) {
         mRingsListView= (PullToRefreshListView) view.findViewById(R.id.rings_list_view);
         listHeadView=mInflater.inflate(R.layout.rings_fragment_header_view,null);
         listView=mRingsListView.getRefreshableView();
+        addEmptyView();
         listView.addHeaderView(listHeadView);
         ringsListAdapter=new RingsListAdapter();
         mRingsListView.setAdapter(ringsListAdapter);
     }
 
+    private void addEmptyView(){
+        LinearLayout.LayoutParams layoutParams=
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity= Gravity.CENTER;
+        ProgressBar progressBar =new ProgressBar(mContext);
+        progressBar.setIndeterminateDrawable(getResources().getDrawable(R.drawable.progress_loading));
+        progressBar.setIndeterminate(true);
+        progressBar.setLayoutParams(layoutParams);
+        ((ViewGroup)mRingsListView.getParent()).addView(progressBar);
+        mRingsListView.setEmptyView(progressBar);
+    }
     @Override
     public void success(String result) {
         Gson gson=new Gson();
@@ -97,8 +114,10 @@ public class RingsFragment extends BaseFragment implements IOKCallBack{
             topic_list.addAll(ringsBean.getData().getList().getTopic_list());
             updateHeadView();
             setDatas();
-            ringsListAdapter.notifyDataSetChanged();
+        }else {
+            Toast.makeText(mContext,"网络连接异常，请检查网络！",Toast.LENGTH_SHORT).show();
         }
+        ringsListAdapter.notifyDataSetChanged();
     }
 
     private void setDatas() {
@@ -146,21 +165,40 @@ public class RingsFragment extends BaseFragment implements IOKCallBack{
                 viewHolder=new ViewHolder(view);
             }else {
                 viewHolder= (ViewHolder) view.getTag();
-                final RingsBean.DataBean.ListBean.TopicListBean topicListBean=topic_list.get(i);
-                Picasso.with(mContext).load(topicListBean.getFace()).into(viewHolder.user_icon);
-                viewHolder.user_name.setText(topicListBean.getNickname());
-                String user_lv="("+topicListBean.getRole_name()+")";
-                viewHolder.user_lv.setText(user_lv);
-                viewHolder.date_line.setText(topicListBean.getDateline());
-                String message_from="来自"+topicListBean.getFrom();
-                viewHolder.message_from.setText(message_from);
-                viewHolder.replys_num.setText(topicListBean.getReplys());
-                viewHolder.zan_num.setText(topicListBean.getDigcounts());
-                viewHolder.message_title.setText(topicListBean.getTitle());
-                viewHolder.content.setText(topicListBean.getContent().get(0));
-                GridImgListAdapter gridImgListAdapter=new GridImgListAdapter(topicListBean);
-                viewHolder.imgGrid.setAdapter(gridImgListAdapter);
             }
+            final RingsBean.DataBean.ListBean.TopicListBean topicListBean=topic_list.get(i);
+            Picasso.with(mContext).load(topicListBean.getFace()).into(viewHolder.user_icon);
+            viewHolder.user_name.setText(topicListBean.getNickname());
+            String user_lv="("+topicListBean.getRole_name()+")";
+            viewHolder.user_lv.setText(user_lv);
+            viewHolder.date_line.setText(topicListBean.getDateline());
+            String message_from="来自"+topicListBean.getFrom();
+            viewHolder.message_from.setText(message_from);
+            viewHolder.replys_num.setText(topicListBean.getReplys());
+            viewHolder.zan_num.setText(topicListBean.getDigcounts());
+            viewHolder.message_title.setText(topicListBean.getTitle());
+            if (topicListBean.getTitle().equals("")){
+                viewHolder.message_title.setVisibility(View.GONE);
+            }else {
+                viewHolder.message_title.setVisibility(View.VISIBLE);
+            }
+            viewHolder.content.setText(topicListBean.getContent().get(0));
+            GridImgListAdapter gridImgListAdapter=new GridImgListAdapter(topicListBean);
+            if(topicListBean.getImage_list()==null){
+                viewHolder.imgGrid.setVisibility(View.GONE);
+            }else {
+                viewHolder.imgGrid.setVisibility(View.VISIBLE);
+            }
+            viewHolder.imgGrid.setAdapter(gridImgListAdapter);
+            viewHolder.imgGrid.setFocusable(false);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(mContext, RingsInfoActivity.class);
+                    intent.putExtra("tid",topicListBean.getTid());
+                    startActivity(intent);
+                }
+            });
             return view;
         }
 
@@ -190,40 +228,52 @@ public class RingsFragment extends BaseFragment implements IOKCallBack{
                 imgGrid= (GridView) view.findViewById(R.id.rings_item_img_show);
             }
         }
-        class GridImgListAdapter extends BaseAdapter {
-            private RingsBean.DataBean.ListBean.TopicListBean topicListBean;
-            public GridImgListAdapter(RingsBean.DataBean.ListBean.TopicListBean topicListBean){
-                this.topicListBean=topicListBean;
-            }
-            @Override
-            public int getCount() {
-                if (topicListBean.getImage_list()==null){
-                    return 0;
-                }else if(topicListBean.getImage_list().size()<=3){
-                    return topicListBean.getImage_list().size();
-                }else {
-                    return 3;
-                }
-            }
-
-            @Override
-            public Object getItem(int i) {
-                return null;
-            }
-
-            @Override
-            public long getItemId(int i) {
+    }
+    class GridImgListAdapter extends BaseAdapter {
+        private RingsBean.DataBean.ListBean.TopicListBean topicListBean;
+        public GridImgListAdapter(RingsBean.DataBean.ListBean.TopicListBean topicListBean){
+            this.topicListBean=topicListBean;
+        }
+        @Override
+        public int getCount() {
+            if (topicListBean.getImage_list()==null){
                 return 0;
+            }else if(topicListBean.getImage_list().size()<=3){
+                return topicListBean.getImage_list().size();
+            }else {
+                return 3;
             }
+        }
 
-            @Override
-            public View getView(int i, View view, ViewGroup viewGroup) {
-                if (view==null){
-                    view=mInflater.inflate(R.layout.grid_view_item_view,viewGroup,false);
-                }
-                ImageView imageView= (ImageView) view.findViewById(R.id.grid_item_img);
-                Picasso.with(mContext).load(topicListBean.getImage_list().get(i).getImage_middle()).into(imageView);
-                return view;
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            ViewHolder viewHolder;
+            if (view==null){
+                view=mInflater.inflate(R.layout.grid_view_item_view,viewGroup,false);
+                viewHolder=new ViewHolder(view);
+            }else {
+                viewHolder= (ViewHolder) view.getTag();
+            }
+            viewHolder.imageView.setFocusable(false);
+            Picasso.with(mContext).load(topicListBean.getImage_list().get(i).getImage_middle()).into(viewHolder.imageView);
+            return view;
+        }
+
+        class ViewHolder{
+            public ImageView imageView;
+            public ViewHolder(View view){
+                view.setTag(this);
+                imageView= (ImageView) view.findViewById(R.id.grid_item_img);
             }
         }
     }

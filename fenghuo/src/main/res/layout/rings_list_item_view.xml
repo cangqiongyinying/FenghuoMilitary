@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:descendantFocusability="afterDescendants">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -76,11 +77,11 @@
         android:id="@+id/rings_item_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_small"
+        android:textSize="15sp"
         android:layout_margin="5dp"/>
     <GridView
         android:id="@+id/rings_item_img_show"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:numColumns="3"/>
 </LinearLayout>

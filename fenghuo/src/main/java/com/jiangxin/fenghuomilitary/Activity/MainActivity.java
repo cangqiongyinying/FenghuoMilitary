@@ -15,7 +15,7 @@ import com.jiangxin.fenghuomilitary.R;
 import com.liang.OkHttpLibrary.OkHttpUtils;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static final String HTTP_HEAD="http://if.fenghuo001.com";
     public static boolean netConnect;
     private FragmentManager mSupportFragmentManager;
     private  RecommendFragment recommendFragment;
