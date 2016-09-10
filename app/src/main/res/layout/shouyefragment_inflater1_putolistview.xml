@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:layout_height="match_parent">
+   <LinearLayout
+       android:layout_width="0dp"
+       android:layout_height="75dp"
+       android:layout_weight="4"
+       android:orientation="vertical">
+       <TextView
+           android:id="@+id/shouyefragment_inflater1_title"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:maxLines="2"
+           android:layout_gravity="center_vertical"
+           android:textSize="18sp"
+           android:textColor="#000000"/>
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:orientation="horizontal">
+           <TextView
+               android:id="@+id/shouyefragment_inflater1_type"
+               android:layout_width="0dp"
+               android:layout_weight="4"
+               android:layout_gravity="center_vertical"
+               android:layout_height="wrap_content" />
+           <ImageView
+               android:id="@+id/shouyefragment_inflater1_head"
+               android:layout_width="0dp"
+               android:layout_weight="0.5"
+               android:layout_gravity="center_vertical"
+               android:src="@drawable/tuijian_shouye_list_aritcle_icon"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:id="@+id/shouyefragment_inflater1_source"
+               android:layout_width="0dp"
+               android:layout_weight="2"
+               android:singleLine="true"
+               android:layout_gravity="center_vertical"
+               android:layout_height="wrap_content" />
+           <ImageView
+               android:id="@+id/shouyefragment_inflater1_message"
+               android:layout_width="0dp"
+               android:layout_weight="0.5"
+               android:src="@drawable/tuijian_shouye_list_comment_icon"
+               android:layout_gravity="center_vertical"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:id="@+id/shouyefragment_inflater1_replycount"
+               android:layout_width="0dp"
+               android:layout_weight="0.5"
+               android:layout_gravity="center_vertical"
+               android:layout_height="wrap_content" />
+       </LinearLayout>
+       </RelativeLayout>
+   </LinearLayout>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/shouyefragment_inflater1_imageview"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        app:riv_corner_radius="5dp"
+        android:scaleType="fitXY"
+        android:layout_height="75dp" />
+</LinearLayout>

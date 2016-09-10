@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="phone1000.com.firemilitary">
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".FirstActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
+
+        </activity>
+        <activity
+            android:name=".Activity.MineLogin.LoginActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".Activity.MineLogin.MineCollectionActivity" />
+        <activity android:name=".Activity.MineLogin.MineMessageActivity" />
+        <activity android:name=".Activity.MineLogin.SetActivity" />
+        <activity android:name=".Activity.RingsInfo.RingsInfoActivity" android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!--
+带有EditText控件的在第一次显示的时候会自动获得focus，并弹出键盘
+如果不想自动弹出键盘：android:windowSoftInputMode="stateHidden"
+-->
+        <activity
+            android:name=".Activity.ViedoInfo.VideoContentActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!--PlayVideoActivity设置横屏-->
+        <activity
+            android:name=".Activity.ViedoInfo.PlayVideoActivity"
+            android:screenOrientation="landscape">
+        </activity>
+    </application>
+
+</manifest>
