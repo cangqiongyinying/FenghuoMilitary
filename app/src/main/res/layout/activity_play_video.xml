@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="phone1000.com.firemilitary.Activity.ViedoInfo.PlayVideoActivity">
+
+    <!--<ImageView-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"-->
+        <!--android:padding="5dp"-->
+        <!--android:onClick="onBack"/>-->
+
+    <WebView
+        android:id="@+id/video_play_wb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

@@ -9,14 +9,6 @@
         android:background="@color/colorWhite"
         android:padding="20dp">
         <TextView
-            android:id="@+id/rings_info_replys_num"
-            android:layout_width="35dp"
-            android:layout_height="20dp"
-            android:gravity="center_vertical"
-            android:drawablePadding="5dp"
-            android:drawableLeft="@drawable/tuijian_shouye_quanzi_comment_icon"
-            android:drawableStart="@drawable/tuijian_shouye_quanzi_comment_icon"/>
-        <TextView
             android:id="@+id/rings_info_zan_num"
             android:layout_width="35dp"
             android:layout_height="20dp"
@@ -26,9 +18,17 @@
             android:layout_marginEnd="5dp"
             android:drawableLeft="@drawable/tuijian_shouye_quanzi_zan_icon"
             android:drawableStart="@drawable/tuijian_shouye_quanzi_zan_icon"/>
+        <TextView
+            android:id="@+id/rings_info_replys_num"
+            android:layout_width="35dp"
+            android:layout_height="20dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/tuijian_shouye_quanzi_comment_icon"
+            android:drawableStart="@drawable/tuijian_shouye_quanzi_comment_icon"/>
     </LinearLayout>
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/rings_info_comment_info"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

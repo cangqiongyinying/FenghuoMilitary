@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    >
+
+    <ImageView
+        android:id="@+id/video_lv_iv"
+        android:layout_width="80dp"
+        android:layout_height="65dp"
+        android:layout_alignParentLeft="true"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/column_default"
+        />
+
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/video_lv_tv_rl"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_toRightOf="@id/video_lv_iv"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--&gt;-->
+
+        <TextView
+            android:id="@+id/video_lv_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/video_lv_iv"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="新闻标题"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/video_lv_tv_list_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/video_lv_tv_title"
+            android:layout_alignLeft="@id/video_lv_tv_title"
+            android:drawableLeft="@drawable/tuijian_shouye_list_aritcle_icon"
+            android:text=" 烽火军事"
+            android:textSize="11sp"
+
+            />
+
+
+    <!--</RelativeLayout>-->
+
+
+</RelativeLayout>

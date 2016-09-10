@@ -1,1 +1,1 @@
-include ':fenghuo', ':okhttplibrary', ':refreshlibrary'
+include ':okhttplibrary', ':refreshlibrary', ':putorefreshlibrary', ':app'
