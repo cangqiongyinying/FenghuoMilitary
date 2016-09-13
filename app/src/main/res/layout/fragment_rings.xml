@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/header_footer_top_bottom_padding"
-        android:alpha="0.5"
+        android:alpha="0.75"
         app:layout_anchor="@id/rings_main_layout"
         app:layout_anchorGravity="bottom|right"
         android:src="@drawable/quanzi_fabiao_btn"/>

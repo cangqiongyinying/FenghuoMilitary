@@ -51,23 +51,21 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="3dp"
         android:layout_marginTop="10dp">
-
         <EditText
             android:id="@+id/bottom_et"
-            android:layout_width="260dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:background="@drawable/btn_shape"
+            android:layout_toLeftOf="@+id/bottom_discuss_rl"
             android:hint="说两句吧~"
             android:padding="6dp" />
-
         <RelativeLayout
-            android:id="@+id/bottom_discuss_rl"
+            android:id="@id/bottom_discuss_rl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/bottom_et"
+            android:layout_alignParentRight="true"
             android:padding="10dp">
 
 
@@ -84,16 +82,17 @@
                 android:layout_toLeftOf="@id/bottom_discuss"
                 android:text="1" />
 
+            <ImageView
+                android:id="@+id/bottom_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/bottom_discuss"
+                android:src="@drawable/zhengwen_toolbar_fav" />
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/bottom_fav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/bottom_discuss_rl"
-            android:src="@drawable/zhengwen_toolbar_fav" />
+
 
     </RelativeLayout>
 

@@ -64,6 +64,7 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
     private Gson gson;
     private PutoBaseAdapter putobaseAdapter;
     private int totalpage;
+    private boolean upOrDown;
 
     private Handler handler = new Handler() {
         public Toast toast;
@@ -192,6 +193,7 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
     //上拉刷新监听
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+        upOrDown=false;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -223,6 +225,7 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
     //下拉加载更过监听
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+        upOrDown=true;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -260,6 +263,10 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
             Toast.makeText(getContext(),"当前网络未连接,请查看网络状态",Toast.LENGTH_SHORT).show();
         }
         if (shouYeProductInfo != null) {
+            if (!upOrDown){
+                slideBeenlist.clear();
+                recdtopiclist.clear();
+            }
             slideBeenlist.addAll(shouYeProductInfo.getData().getAll_data().getSlide());
         }
         //添加其他Fragment的数据

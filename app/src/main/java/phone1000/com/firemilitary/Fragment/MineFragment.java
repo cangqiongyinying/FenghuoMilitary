@@ -3,21 +3,27 @@ package phone1000.com.firemilitary.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import phone1000.com.firemilitary.Activity.MineLogin.LoginActivity;
 import phone1000.com.firemilitary.Activity.MineLogin.MineCollectionActivity;
 import phone1000.com.firemilitary.Activity.MineLogin.MineMessageActivity;
 import phone1000.com.firemilitary.Activity.MineLogin.SetActivity;
+import phone1000.com.firemilitary.Activity.MineLogin.UserInfoActivity;
 import phone1000.com.firemilitary.R;
+import phone1000.com.firemilitary.dao.DBUtils;
+import phone1000.com.firemilitary.dao.User;
 
 
 /**
@@ -36,6 +42,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     private Button mineCollection;
     private Button mineMessage;
     private Button set;
+    private ImageView userImg;
+    private TextView beforeLoginMsg;
+    private TextView userName;
+    private TextView userAbstract;
+    private SharedPreferences mSp;
+    private boolean isLogin;
     public MineFragment() {
         // Required empty public constructor
     }
@@ -48,6 +60,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext=getContext();
+        mSp=mContext.getSharedPreferences("users",Context.MODE_WORLD_WRITEABLE);
     }
 
     @Override
@@ -58,6 +71,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         initView(view);
         setOnClick();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        showUserMessage();
     }
 
     private void setOnClick() {
@@ -74,9 +93,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     private void initView(View view) {
         mLogin= (RelativeLayout) view.findViewById(R.id.user_message_layout);
         afterLogin= (LinearLayout) view.findViewById(R.id.after_login_user_info);
-//        if (true){
-//            afterLogin.setVisibility(View.VISIBLE);
-//        }
+        userImg= (ImageView) view.findViewById(R.id.user_img);
+        beforeLoginMsg= (TextView) view.findViewById(R.id.before_login_message);
+        userName= (TextView) view.findViewById(R.id.after_login_user_name);
+        userAbstract= (TextView) view.findViewById(R.id.after_login_user_abstract);
         afterDiscuss= (LinearLayout) view.findViewById(R.id.after_login_discuss);
         afterAttention= (LinearLayout) view.findViewById(R.id.after_login_attention);
         afterFans= (LinearLayout) view.findViewById(R.id.after_login_fans);
@@ -86,22 +106,49 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         set= (Button) view.findViewById(R.id.login_mine_set);
     }
 
+    private void showUserMessage() {
+        isLogin=mSp.getBoolean("isLogin",false);
+        if (isLogin){
+            userImg.setImageResource(R.drawable.avatar);
+            afterLogin.setVisibility(View.VISIBLE);
+            beforeLoginMsg.setVisibility(View.GONE);
+            userName.setVisibility(View.VISIBLE);
+            for (User us: DBUtils.getDao(mContext).loadAll()){
+                if (mSp.getString("account","").equals(us.getAccount())){
+                    SharedPreferences.Editor editor=mSp.edit();
+                    editor.putString("nickname",us.getNickname());
+                    editor.commit();
+                    userName.setText(us.getNickname());
+                }
+            }
+            userAbstract.setVisibility(View.VISIBLE);
+            userAbstract.setText("暂无简介");
+        }else {
+            userImg.setImageResource(R.drawable.user_img98);
+            afterLogin.setVisibility(View.GONE);
+            beforeLoginMsg.setVisibility(View.VISIBLE);
+            userName.setVisibility(View.GONE);
+            userAbstract.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void onClick(View view) {
         Intent intent=new Intent();
         switch (view.getId()){
             case R.id.user_message_layout:
-                if (true){
-                intent.setClass(mContext, LoginActivity.class);
+                if (!isLogin){
+                    intent.setClass(mContext, LoginActivity.class);
                 }else {
+                    intent.setClass(mContext, UserInfoActivity.class);
                 }
                 break;
             case R.id.after_login_discuss:
-                break;
+                return;
             case R.id.after_login_attention:
-                break;
+                return;
             case R.id.after_login_fans:
-                break;
+                return;
             case R.id.login_headquarters:
                 if (true){
                     Toast.makeText(mContext,"您还没有登录，请先登录!",Toast.LENGTH_SHORT).show();

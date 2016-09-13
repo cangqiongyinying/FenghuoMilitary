@@ -37,7 +37,7 @@ public class PlayerFragment extends BaseFragment {
     private VideoAdapter videoAdapter;
     private ProgressDialog progressDialog;
     private PullToRefreshListView mPullToRefreshListView;
-    private ListView mListView;
+    private boolean upOrDown;
 
 
     public PlayerFragment() {
@@ -84,6 +84,7 @@ public class PlayerFragment extends BaseFragment {
              */
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                upOrDown=false;
                 if (!MainActivity.netConnect) {
                     Toast.makeText(mContext, "当前网络未连接,请查看网络状态", Toast.LENGTH_SHORT).show();
                 }
@@ -104,6 +105,7 @@ public class PlayerFragment extends BaseFragment {
              */
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                upOrDown=true;
                 //判断当前网络状态
                 if (!MainActivity.netConnect) {
                     Toast.makeText(mContext, "当前网络未连接,请查看网络状态", Toast.LENGTH_SHORT).show();
@@ -185,6 +187,9 @@ public class PlayerFragment extends BaseFragment {
                         VideoInfo videoInfo = gson.fromJson(result, VideoInfo.class);
                         if (MainActivity.netConnect && result != null) {
                             //如果网络连接成功
+                            if (!upOrDown){
+                                lvData.clear();
+                            }
                             lvData.addAll(videoInfo.getData().getList());
                         }
                         //刷新适配器

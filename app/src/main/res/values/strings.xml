@@ -43,5 +43,7 @@
     <string name="rings">圈子</string>
     <string name="reply">回复</string>
     <string name="video_player">视频</string>
+    <string name="repeat_password">重复密码</string>
+    <string name="nickname">昵称</string>
 
 </resources>

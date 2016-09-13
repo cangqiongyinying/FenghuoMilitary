@@ -63,6 +63,7 @@
             android:drawablePadding="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
+            android:enabled="true"
             android:drawableLeft="@drawable/tuijian_shouye_quanzi_zan_icon"
             android:drawableStart="@drawable/tuijian_shouye_quanzi_zan_icon"/>
     </RelativeLayout>

@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/user_img98"/>
             <TextView
+                android:id="@+id/before_login_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/user_img"
@@ -44,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorText"
                 android:visibility="gone"
-                android:layout_margin="5dp"/>
+                android:layout_margin="10dp"/>
             <TextView
                 android:id="@+id/after_login_user_abstract"
                 android:layout_alignLeft="@id/after_login_user_name"
@@ -52,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:layout_margin="10dp"/>
+                android:layout_marginTop="10dp"/>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,11 +83,12 @@
                 android:id="@+id/discuss_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorText"/>
+                android:textColor="@color/colorText"
+                android:text="0"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/discuss"/>
+                android:text="@string/discuss" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/after_login_attention"
@@ -101,7 +103,8 @@
                 android:id="@+id/attention_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorText"/>
+                android:textColor="@color/colorText"
+                android:text="0"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -120,7 +123,8 @@
                 android:id="@+id/fans_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorText"/>
+                android:textColor="@color/colorText"
+                android:text="0"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

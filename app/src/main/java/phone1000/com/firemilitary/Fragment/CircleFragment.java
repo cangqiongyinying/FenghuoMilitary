@@ -50,6 +50,7 @@ public class CircleFragment extends BaseFragment implements IOKCallBack{
     private RingsBean ringsBean;
     private List<RingsBean.DataBean.ListBean.TopicListBean> topic_list =new ArrayList<>();
     private RingsListAdapter ringsListAdapter;
+    private boolean upOrdown;
 
 
     public CircleFragment() {
@@ -82,6 +83,7 @@ public class CircleFragment extends BaseFragment implements IOKCallBack{
 
     private void initView(View view) {
         mRingsListView= (PullToRefreshListView) view.findViewById(R.id.rings_list_view);
+        mRingsListView.setMode(PullToRefreshBase.Mode.BOTH);
         listHeadView=mInflater.inflate(R.layout.rings_fragment_header_view,null);
         listView=mRingsListView.getRefreshableView();
         addEmptyView();
@@ -115,11 +117,11 @@ public class CircleFragment extends BaseFragment implements IOKCallBack{
              */
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                upOrdown=false;
                 if (!MainActivity.netConnect) {
                     Toast.makeText(mContext, "当前网络未连接,请查看网络状态", Toast.LENGTH_SHORT).show();
                 }
                 page = 1;
-                topic_list.clear();
                 httpLoad();
                 //加载数据完成之后，通知刷新控件结束刷新动作
                 mRingsListView.postDelayed(new Runnable() {
@@ -137,6 +139,7 @@ public class CircleFragment extends BaseFragment implements IOKCallBack{
              */
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                upOrdown=true;
                 //判断当前网络状态
                 if (!MainActivity.netConnect) {
                     Toast.makeText(mContext, "当前网络未连接,请查看网络状态", Toast.LENGTH_SHORT).show();
@@ -170,6 +173,9 @@ public class CircleFragment extends BaseFragment implements IOKCallBack{
         Gson gson=new Gson();
         ringsBean=gson.fromJson(result,RingsBean.class);
         if (MainActivity.netConnect){
+            if (!upOrdown){
+                topic_list.clear();
+            }
             topic_list.addAll(ringsBean.getData().getList().getTopic_list());
             updateHeadView();
             setDatas();
@@ -198,6 +204,16 @@ public class CircleFragment extends BaseFragment implements IOKCallBack{
         headUserNum= (TextView) listHeadView.findViewById(R.id.quanzi_user_num);
         headRingsName= (TextView) listHeadView.findViewById(R.id.quanzi_head_name);
         headHotComment= (TextView) listHeadView.findViewById(R.id.hot_comment);
+        headGuanZhuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!headGuanZhuIcon.isSelected()){
+                    headGuanZhuIcon.setSelected(true);
+                }else {
+                    headGuanZhuIcon.setSelected(false);
+                }
+            }
+        });
     }
 
     class RingsListAdapter extends BaseAdapter {
@@ -235,6 +251,19 @@ public class CircleFragment extends BaseFragment implements IOKCallBack{
             viewHolder.message_from.setText(message_from);
             viewHolder.replys_num.setText(topicListBean.getReplys());
             viewHolder.zan_num.setText(topicListBean.getDigcounts());
+            viewHolder.zan_num.setSelected(false);
+            viewHolder.zan_num.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!viewHolder.zan_num.isSelected()){
+                        int num=(Integer.parseInt(topicListBean.getDigcounts())+1);
+                        viewHolder.zan_num.setText(num+"");
+                        viewHolder.zan_num.setSelected(true);
+                    }else {
+                        Toast.makeText(mContext,"您已经赞过了",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
             viewHolder.message_title.setText(topicListBean.getTitle());
             if (topicListBean.getTitle().equals("")){
                 viewHolder.message_title.setVisibility(View.GONE);

@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean netConnect;
     private RadioGroup radiogroup;
     private FragmentManager supportFragmentManager;
+    private FragmentTransaction fragmentTransaction;
     private Fragment mCurrentShowFragment;
     private  TuijianFragment recommendFragment;
     private  PlayerFragment videoFragment;
@@ -44,45 +45,58 @@ public class MainActivity extends AppCompatActivity {
         netConnect= OkHttpUtils.isNetworkConnected(this);
         //初始化视图
         initView();
-        addFragment();
     }
 
-    private void addFragment() {
-        recommendFragment = TuijianFragment.newInstance();
-        videoFragment = PlayerFragment.newInstance();
-        ringsFragment = CircleFragment.newInstance();
-        mineFragment = MineFragment.newInstance();
-        ctrlFragment(videoFragment);
-    }
     private void initView() {
         supportFragmentManager = getSupportFragmentManager();
         radiogroup=(RadioGroup)findViewById(R.id.mainactivity_radiogroup);
-        addFragment();
         pageChanged();
-
     }
 
     private void pageChanged() {
-        radiogroup.check(R.id.mainacitvity_radiobtn1);
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                fragmentTransaction = supportFragmentManager.beginTransaction();
+                HideFragment(fragmentTransaction);
                 switch (checkedId){
                     case R.id.mainacitvity_radiobtn:
-                        ctrlFragment(recommendFragment);
+                        if (recommendFragment==null){
+                            recommendFragment=new TuijianFragment();
+                            fragmentTransaction.add(R.id.mainactivity_framelayout,recommendFragment);
+                        }else {
+                            fragmentTransaction.show(recommendFragment);
+                        }
                         break;
                     case R.id.mainacitvity_radiobtn1:
-                        ctrlFragment(videoFragment);
+                        if (videoFragment==null){
+                            videoFragment=new PlayerFragment();
+                            fragmentTransaction.add(R.id.mainactivity_framelayout,videoFragment);
+                        }else {
+                            fragmentTransaction.show(videoFragment);
+                        }
                         break;
                     case R.id.mainacitvity_radiobtn2:
-                        ctrlFragment(ringsFragment);
+                        if (ringsFragment==null){
+                            ringsFragment=new CircleFragment();
+                            fragmentTransaction.add(R.id.mainactivity_framelayout,ringsFragment);
+                        }else {
+                            fragmentTransaction.show(ringsFragment);
+                        }
                         break;
                     case R.id.mainacitvity_radiobtn3:
-                        ctrlFragment(mineFragment);
+                        if (mineFragment==null){
+                            mineFragment=new MineFragment();
+                            fragmentTransaction.add(R.id.mainactivity_framelayout,mineFragment);
+                        }else {
+                            fragmentTransaction.show(mineFragment);
+                        }
                         break;
                 }
+                fragmentTransaction.commit();
             }
         });
+        radiogroup.check(R.id.mainacitvity_radiobtn);
     }
 
 
@@ -109,19 +123,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void ctrlFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        if (mCurrentShowFragment != null && mCurrentShowFragment.isAdded()) {
-            fragmentTransaction.hide(mCurrentShowFragment);
+    private void HideFragment(FragmentTransaction fragmentTransaction) {
+        if (recommendFragment!=null){
+            fragmentTransaction.hide(recommendFragment);
         }
-        if (!fragment.isAdded()) {
-            fragmentTransaction.add(R.id.mainactivity_framelayout,fragment);
-        } else {
-            fragmentTransaction.show(fragment);
+        if (videoFragment!=null){
+            fragmentTransaction.hide(videoFragment);
         }
-
-        fragmentTransaction.commit();
-
-        mCurrentShowFragment = fragment;
+        if (ringsFragment!=null){
+            fragmentTransaction.hide(ringsFragment);
+        }
+        if (mineFragment!=null){
+            fragmentTransaction.hide(mineFragment);
+        }
     }
 }

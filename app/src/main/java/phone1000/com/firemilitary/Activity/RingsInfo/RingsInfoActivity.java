@@ -42,6 +42,8 @@ public class RingsInfoActivity extends AppCompatActivity implements IOKCallBack{
     private EditText inputComent;
     private ImageView zan;
     private ImageView share;
+    private LinearLayout mainLayout;
+    private ProgressBar httpLoading;
     private CircleImageView userFace;
     private TextView userName;
     private TextView userLv;
@@ -73,11 +75,20 @@ public class RingsInfoActivity extends AppCompatActivity implements IOKCallBack{
         listHeadView=LayoutInflater.from(this).inflate(R.layout.rings_info_head_view,null);
         listFootView=LayoutInflater.from(this).inflate(R.layout.rings_info_foot_view,null);
         backIcon= (TextView) findViewById(R.id.rings_info_back);
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         moreCheck= (ImageView) findViewById(R.id.more_check);
+        mainLayout= (LinearLayout) findViewById(R.id.rings_info_main_layout);
+        mainLayout.setVisibility(View.GONE);
+        httpLoading= (ProgressBar) findViewById(R.id.rings_info_loading);
         inputComent= (EditText) findViewById(R.id.input_comment);
         zan= (ImageView) findViewById(R.id.rings_info_zan);
         share = (ImageView) findViewById(R.id.rings_info_share);
-        addEmptyView();
+//        addEmptyView();
         infoListView.addHeaderView(listHeadView);
         infoListView.addFooterView(listFootView);
         ringsInfoImgAdapter=new RingsInfoImgAdapter();
@@ -93,19 +104,20 @@ public class RingsInfoActivity extends AppCompatActivity implements IOKCallBack{
         tid=intent.getStringExtra("tid");
     }
 
-    private void addEmptyView(){
-        LinearLayout.LayoutParams layoutParams=
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity= Gravity.CENTER;
-        ProgressBar progressBar =new ProgressBar(this);
-        progressBar.setIndeterminateDrawable(getResources().getDrawable(R.drawable.progress_loading));
-        progressBar.setLayoutParams(layoutParams);
-        ((ViewGroup)infoListView.getParent()).addView(progressBar);
-        infoListView.setEmptyView(progressBar);
-
-    }
+//    private void addEmptyView(){
+//        LinearLayout.LayoutParams layoutParams=
+//                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//        layoutParams.gravity= Gravity.CENTER;
+//        ProgressBar progressBar =new ProgressBar(this);
+//        progressBar.setIndeterminateDrawable(getResources().getDrawable(R.drawable.progress_loading));
+//        progressBar.setLayoutParams(layoutParams);
+//        ((ViewGroup)infoListView.getParent()).addView(progressBar);
+//        infoListView.setEmptyView(progressBar);
+//    }
     @Override
     public void success(String result) {
+        httpLoading.setVisibility(View.GONE);
+        mainLayout.setVisibility(View.VISIBLE);
         Gson gson=new Gson();
         ringsInfoBean=gson.fromJson(result,RingsInfoBean.class);
         if (MainActivity.netConnect){
@@ -133,12 +145,25 @@ public class RingsInfoActivity extends AppCompatActivity implements IOKCallBack{
         zanNum= (TextView) listFootView.findViewById(R.id.rings_info_zan_num);
         replyNum= (TextView) listFootView.findViewById(R.id.rings_info_replys_num);
         footReplyView= (NoScrollExpandableListView) listFootView.findViewById(R.id.rings_info_comment_info);
+        addReplyEmptyView();
         replysListAdapter=new ReplysListAdapter();
         footReplyView.setAdapter(replysListAdapter);
         for (int i = 0; i < replyListBeanList.size(); i++) {
             footReplyView.expandGroup(i);
         }
     }
+
+    private void addReplyEmptyView() {
+        TextView textView=new TextView(this);
+        textView.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
+        textView.setHeight(200);
+        textView.setGravity(Gravity.CENTER);
+        textView.setText("暂时还没有评论");
+        ((ViewGroup)footReplyView.getParent()).addView(textView);
+        footReplyView.setEmptyView(textView);
+
+    }
+
     private void loadDatas() {
         for (RingsInfoBean.DataBean.ContentBean i:contentBeanList){
             if (i.getType().equals("img")){
@@ -250,6 +275,11 @@ public class RingsInfoActivity extends AppCompatActivity implements IOKCallBack{
             String userLv="("+replyListBean.getRole_name()+")";
             groupViewHolder.userLv.setText(userLv);
             groupViewHolder.dateLine.setText(replyListBean.getDateline());
+            if(i==0){
+                groupViewHolder.louceng.setText("沙发");
+            }else {
+                groupViewHolder.louceng.setText((i+1)+"楼");
+            }
             groupViewHolder.replyContent.setText(replyListBean.getContent().get(0));
             if (!replyListBean.getDigcounts().equals("0")){
                 groupViewHolder.zan.setText(replyListBean.getDigcounts());
