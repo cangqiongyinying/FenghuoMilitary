@@ -103,7 +103,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode==KeyEvent.KEYCODE_BACK){
-            exit();
+            if (TuijianFragment.esaytipdragview.isOpen()){
+                TuijianFragment.esaytipdragview.close();
+            }else {
+                exit();
+            }
             return false;
         }else {
             return super.onKeyDown(keyCode, event);

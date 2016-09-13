@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phone1000.com.firemilitary.easytagdragview.widget.TipItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/tagview_delete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/delete_icon"
+        android:layout_toLeftOf="@+id/tagview_linearlayout"
+        android:layout_toStartOf="@+id/tagview_linearlayout"
+        android:layout_marginLeft="5dp"
+        android:visibility="visible"
+        />
+    <LinearLayout
+        android:id="@+id/tagview_linearlayout"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/tagview_titleimage"
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        app:riv_corner_radius="5dp"
+        android:layout_height="80dp"
+        />
+    <TextView
+        android:id="@+id/tagview_title"
+        android:textSize="16sp"
+        android:textColor="@android:color/primary_text_light"
+        android:layout_below="@+id/tagview_titleimage"
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+</phone1000.com.firemilitary.easytagdragview.widget.TipItemView>

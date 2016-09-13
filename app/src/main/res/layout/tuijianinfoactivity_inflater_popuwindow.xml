@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/popuwindow_background"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="#4064e6"
+        android:layout_height="1dp" />
+
+        <!--夜间模式的布局-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="60dp">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:src="@drawable/alert_moon_icon"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="夜间模式"
+            android:textSize="14sp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content" />
+        <Switch
+            android:id="@+id/tuijianinfo_popuwindow_switch"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+        <!--亮度调节的布局-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="60dp">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:src="@drawable/alert_sun_icon"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="亮度调节:"
+            android:textSize="14sp"/>
+        <SeekBar
+            android:id="@+id/tuijianinfo_popuwindow_progress"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+
+        <!--字体大小的布局-->
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="0.8"
+                android:src="@drawable/alert_ziti_icon"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.6"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="字体大小:"
+                android:textSize="14sp"/>
+            <RadioGroup
+                android:id="@+id/tuijianinfo_popuwindow_radiogroup"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/popuwindow_changefront_background"
+                android:layout_marginRight="10dp"
+                android:padding="1dp"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/tuijianinfo_popuwindow_radiobuttonsmall"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="小"
+                    android:gravity="center"
+                    android:background="@drawable/popuwindow_changefront_radiobuttonsmall"
+                    android:textColor="@color/popuwindow_frontchange_color"
+                    android:layout_height="match_parent" />
+                <RadioButton
+                    android:id="@+id/tuijianinfo_popuwindow_radiobuttonmidel"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="中"
+                    android:background="@drawable/popuwindow_changefront_radiobuttonsmall"
+                    android:textColor="@color/popuwindow_frontchange_color"
+                    android:gravity="center"
+                    android:layout_height="match_parent" />
+                <RadioButton
+                    android:id="@+id/tuijianinfo_popuwindow_radiobuttonbig"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="大"
+                    android:background="@drawable/popuwindow_changefront_radiobuttonsmall"
+                    android:textColor="@color/popuwindow_frontchange_color"
+                    android:gravity="center"
+                    android:layout_height="match_parent" />
+                <RadioButton
+                    android:id="@+id/tuijianinfo_popuwindow_radiobuttonenoughbig"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="特大"
+                    android:background="@drawable/popuwindow_changefront_radiobuttonsmall"
+                    android:textColor="@color/popuwindow_frontchange_color"
+                    android:gravity="center"
+                    android:layout_height="match_parent" />
+            </RadioGroup>
+        </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="#dddddd"
+        android:layout_height="1dp" />
+
+
+    <Button
+        android:id="@+id/tuijianinfo_popuwindow_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="完成"
+        android:background="#00000000"/>
+    </LinearLayout>
+</RelativeLayout>

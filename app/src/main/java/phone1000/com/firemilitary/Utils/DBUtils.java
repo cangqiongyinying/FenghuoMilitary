@@ -1,7 +1,11 @@
-package phone1000.com.firemilitary.dao;
+package phone1000.com.firemilitary.Utils;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import phone1000.com.firemilitary.dao.DaoMaster;
+import phone1000.com.firemilitary.dao.DaoSession;
+import phone1000.com.firemilitary.dao.UserDao;
 
 /**
  * Created by my on 2016/9/12.

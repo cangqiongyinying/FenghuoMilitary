@@ -5,5 +5,5 @@
     <com.bigkoo.convenientbanner.ConvenientBanner
         android:id="@+id/shouyefragment_inflater_convientbanner"
         android:layout_width="match_parent"
-        android:layout_height="180dp"></com.bigkoo.convenientbanner.ConvenientBanner>
+        android:layout_height="220dp"></com.bigkoo.convenientbanner.ConvenientBanner>
 </LinearLayout>

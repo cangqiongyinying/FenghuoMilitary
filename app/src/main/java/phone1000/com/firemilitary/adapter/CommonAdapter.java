@@ -53,7 +53,7 @@ public class CommonAdapter extends BaseAdapter {
         }else {
             viewHolder1=(ViewHolder1)convertView.getTag();
         }
-        XinxiKongProductInfo.DataBean.ListBean listBean = xinxinkonglist.get(position);
+        final XinxiKongProductInfo.DataBean.ListBean listBean = xinxinkonglist.get(position);
         viewHolder1.title.setText(listBean.getTitle());
         long time = TimeFormatTool.getTime(Integer.valueOf(listBean.getDateline()));
         long days = (time / (1000 * 60 * 60 * 24));

@@ -1,6 +1,7 @@
 package phone1000.com.firemilitary.Fragment.TuijianFrag;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -37,8 +39,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import phone1000.com.firemilitary.Activity.TuijianInfo.TuijianInfoActivity;
 import phone1000.com.firemilitary.Fragment.BaseFragment;
-import phone1000.com.firemilitary.MainActivity;
 import phone1000.com.firemilitary.R;
 import phone1000.com.firemilitary.TimeFormatTool.TimeFormatTool;
 import phone1000.com.firemilitary.bean.ShouYeProductInfo;
@@ -64,7 +66,6 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
     private Gson gson;
     private PutoBaseAdapter putobaseAdapter;
     private int totalpage;
-    private boolean upOrDown;
 
     private Handler handler = new Handler() {
         public Toast toast;
@@ -175,6 +176,17 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
         ListView refreshableView = putorefreshlistview.getRefreshableView();
         refreshableView.addHeaderView(header);
         convirentbanner = (ConvenientBanner) header.findViewById(R.id.shouyefragment_inflater_convientbanner);
+        //设置广告牌的点击事件
+        convirentbanner.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(getActivity(), TuijianInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tid", slideBeenlist.get(position).getTid());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -193,7 +205,6 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
     //上拉刷新监听
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        upOrDown=false;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -225,12 +236,11 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
     //下拉加载更过监听
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-        upOrDown=true;
         new Thread(new Runnable() {
             @Override
             public void run() {
+                page++;
                 if (page <= totalpage) {
-                    page++;
                     stringbuffer = new StringBuffer();
                     stringbuffer.append(ADRESSURL).append(page).append("&");
                     map.put("maxid=", String.valueOf(maxid));
@@ -255,52 +265,46 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
 
     @Override
     public void success(String result) {
-        gson = new Gson();
-        ShouYeProductInfo shouYeProductInfo = gson.fromJson(result, ShouYeProductInfo.class);
-        if (MainActivity.netConnect){
+        if (result!=null) {
+            gson = new Gson();
+            ShouYeProductInfo shouYeProductInfo = gson.fromJson(result, ShouYeProductInfo.class);
             totalpage = shouYeProductInfo.getData().getTotal_page();
-        }else {
-            Toast.makeText(getContext(),"当前网络未连接,请查看网络状态",Toast.LENGTH_SHORT).show();
-        }
-        if (shouYeProductInfo != null) {
-            if (!upOrDown){
-                slideBeenlist.clear();
-                recdtopiclist.clear();
+            if (shouYeProductInfo != null) {
+                slideBeenlist.addAll(shouYeProductInfo.getData().getAll_data().getSlide());
             }
-            slideBeenlist.addAll(shouYeProductInfo.getData().getAll_data().getSlide());
-        }
-        //添加其他Fragment的数据
-        if (shouYeProductInfo != null) {
-            for (int m = 0; m < shouYeProductInfo.getData().getAll_chan_list().size(); m++) {
-                fragmentMap = new HashMap<>();
-                fragmentMap.put(shouYeProductInfo.getData().getAll_chan_list().get(m).getName(), shouYeProductInfo.getData().getAll_chan_list().get(m).getUrl());
-                fragmentlist.add(fragmentMap);
+            //添加其他Fragment的数据
+            if (shouYeProductInfo != null) {
+                for (int m = 0; m < shouYeProductInfo.getData().getAll_chan_list().size(); m++) {
+                    fragmentMap = new HashMap<>();
+                    fragmentMap.put(shouYeProductInfo.getData().getAll_chan_list().get(m).getName(), shouYeProductInfo.getData().getAll_chan_list().get(m).getUrl());
+                    fragmentlist.add(fragmentMap);
+                }
             }
-        }
 
-        //添加广告的数据源
-        for (int i = 0; i < slideBeenlist.size(); i++) {
-            convienmaptlist = new HashMap<>();
-            convienmaptlist.put(slideBeenlist.get(i).getTitle(), slideBeenlist.get(i).getImage_list());
-            convientlist.add(convienmaptlist);
-        }
-        //设置首页的广告牌
-        convirentbanner.setPages(new CBViewHolderCreator() {
-            @Override
-            public Object createHolder() {
-                return new MyConvientBannerHolder();
+            //添加广告的数据源
+            for (int i = 0; i < slideBeenlist.size(); i++) {
+                convienmaptlist = new HashMap<>();
+                convienmaptlist.put(slideBeenlist.get(i).getTitle(), slideBeenlist.get(i).getImage_list());
+                convientlist.add(convienmaptlist);
             }
-        }, convientlist).setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL).
-                setPageIndicator(new int[]{R.drawable.convientbannerindictor, R.drawable.convientbannerindictor}).startTurning(3000);
-        //添加putorefreshlistview的数据源
-        if (shouYeProductInfo != null) {
-            for (int j = 0; j < shouYeProductInfo.getData().getAll_data().getRecd_topic().size(); j++) {
-                recdtopiclist.add(shouYeProductInfo.getData().getAll_data().getRecd_topic().get(j));
+            //设置首页的广告牌
+            convirentbanner.setPages(new CBViewHolderCreator() {
+                @Override
+                public Object createHolder() {
+                    return new MyConvientBannerHolder();
+                }
+            }, convientlist).setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL).
+                    setPageIndicator(new int[]{R.drawable.convientbannerindictor, R.drawable.convientbannerindictor}).startTurning(3000);
+            //添加putorefreshlistview的数据源
+            if (shouYeProductInfo != null) {
+                for (int j = 0; j < shouYeProductInfo.getData().getAll_data().getRecd_topic().size(); j++) {
+                    recdtopiclist.add(shouYeProductInfo.getData().getAll_data().getRecd_topic().get(j));
+                }
             }
+            putobaseAdapter = new PutoBaseAdapter();
+            putorefreshlistview.setAdapter(putobaseAdapter);
+            putobaseAdapter.notifyDataSetChanged();
         }
-        putobaseAdapter = new PutoBaseAdapter();
-        putorefreshlistview.setAdapter(putobaseAdapter);
-        putobaseAdapter.notifyDataSetChanged();
     }
 
 
@@ -416,7 +420,7 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
                         break;
                 }
             }
-            ShouYeProductInfo.DataBean.AllDataBean.RecdTopicBean recdTopicBean = recdtopiclist.get(position);
+            final ShouYeProductInfo.DataBean.AllDataBean.RecdTopicBean recdTopicBean = recdtopiclist.get(position);
             switch (itemViewType) {
                 case 1:
                     viewHolder1.title.setText(recdTopicBean.getTitle());
@@ -454,6 +458,19 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
                         viewHolder1.reply.setText(recdTopicBean.getReplys() + "");
                     }
                     Picasso.with(getActivity()).load(recdTopicBean.getImage_list()).into(viewHolder1.imageView);
+                    //添加当前item的点击事件
+                    if (!recdTopicBean.getCategory().contentEquals("广告")) {
+                        convertView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getActivity(), TuijianInfoActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("tid", recdTopicBean.getTid());
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+                    }
                     break;
                 case 2:
                     viewHolder2.title.setText(recdTopicBean.getTitle());
@@ -463,8 +480,28 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
                     //设置RecycleView的布局管理器
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, true);
                     viewHolder2.recyclerView.setLayoutManager(gridLayoutManager);
-                    MyRecycleViewAdapter myRecycleViewAdapter = new MyRecycleViewAdapter(recdTopicBean.getImage_arr());
+                    MyRecycleViewAdapter myRecycleViewAdapter = new MyRecycleViewAdapter(recdTopicBean.getImage_arr(),recdTopicBean.getTid());
                     viewHolder2.recyclerView.setAdapter(myRecycleViewAdapter);
+                    viewHolder2.recyclerView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), TuijianInfoActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("tid", recdTopicBean.getTid());
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    });
+                    convertView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), TuijianInfoActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("tid", recdTopicBean.getTid());
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    });
                     break;
                 case 4:
                     viewHolder4.title.setText(recdTopicBean.getTitle());
@@ -542,9 +579,11 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
 
     class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleHolder> {
         private List<String> list = new ArrayList<>();
+        private String recdTopicBeanList;
 
-        MyRecycleViewAdapter(List<String> list) {
+        public MyRecycleViewAdapter(List<String> list, String recdTopicBeanList) {
             this.list = list;
+            this.recdTopicBeanList = recdTopicBeanList;
         }
 
         @Override
@@ -557,6 +596,16 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
         @Override
         public void onBindViewHolder(MyRecycleHolder holder, int position) {
             Picasso.with(getActivity()).load(list.get(position)).into(holder.imageview);
+            holder.imageview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), TuijianInfoActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("tid", recdTopicBeanList);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                }
+            });
         }
 
         @Override

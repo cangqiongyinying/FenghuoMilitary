@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context="phone1000.com.firemilitary.Activity.TuijianInfo.WatchImageActivity">
+    <LinearLayout
+        android:id="@+id/watchimage_activity_linear"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/watchimage_activity_back"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:src="@drawable/nav_back"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/watchimage_activity_countnumber"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:textSize="15sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="0.30"
+            android:background="#00000000"
+            android:src="@drawable/nav_img_save"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="0.30"
+            android:background="#00000000"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/zhengwen_toolbar_fav"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="0.30"
+            android:background="#00000000"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/nav_img_share"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <com.bigkoo.convenientbanner.ConvenientBanner
+        android:id="@+id/watchimage_activity_convientbanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/watchimage_activity_linear"
+        android:layout_centerInParent="true"></com.bigkoo.convenientbanner.ConvenientBanner>
+</RelativeLayout>

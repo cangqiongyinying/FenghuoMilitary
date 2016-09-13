@@ -22,7 +22,7 @@ import phone1000.com.firemilitary.Activity.MineLogin.MineMessageActivity;
 import phone1000.com.firemilitary.Activity.MineLogin.SetActivity;
 import phone1000.com.firemilitary.Activity.MineLogin.UserInfoActivity;
 import phone1000.com.firemilitary.R;
-import phone1000.com.firemilitary.dao.DBUtils;
+import phone1000.com.firemilitary.Utils.DBUtils;
 import phone1000.com.firemilitary.dao.User;
 
 

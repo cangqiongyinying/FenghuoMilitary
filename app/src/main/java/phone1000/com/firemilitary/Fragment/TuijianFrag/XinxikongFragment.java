@@ -1,15 +1,14 @@
 package phone1000.com.firemilitary.Fragment.TuijianFrag;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -25,10 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import phone1000.com.firemilitary.Activity.TuijianInfo.TuijianInfoActivity;
 import phone1000.com.firemilitary.Fragment.BaseFragment;
-import phone1000.com.firemilitary.Fragment.TuijianFragment;
-import phone1000.com.firemilitary.InterfaceClass.FragmentUrl;
-import phone1000.com.firemilitary.MainActivity;
 import phone1000.com.firemilitary.R;
 import phone1000.com.firemilitary.adapter.CommonAdapter;
 import phone1000.com.firemilitary.bean.XinxiKongProductInfo;
@@ -36,7 +33,6 @@ import phone1000.com.firemilitary.bean.XinxiKongProductInfo;
 public class XinxikongFragment extends BaseFragment implements IOKCallBack,PullToRefreshBase.OnRefreshListener2{
 
     public static final String ADRESSURL="http://if.fenghuo001.com/api1.3/topic.php?code=recdchantopic&id=2";
-    // TODO: Rename and change types of parameters
     private Map<String,String> map=new HashMap<>();
     private PullToRefreshListView pulltorefresh;
     private List<XinxiKongProductInfo.DataBean.ListBean> xinxinkonglist=new ArrayList<>();
@@ -78,6 +74,16 @@ public class XinxikongFragment extends BaseFragment implements IOKCallBack,PullT
 //        ShouYeFragment.newInstance().getFragmentlist()
         pulltorefresh=(PullToRefreshListView)view.findViewById(R.id.xinxikongfragment_putorefreshlistview);
         pulltorefresh.setMode(PullToRefreshBase.Mode.BOTH);
+        pulltorefresh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), TuijianInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tid", xinxinkonglist.get(position-1).getTid());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
         //设置进入界面的进度条
         addEmptyView();
         //请求网络
@@ -119,8 +125,8 @@ public class XinxikongFragment extends BaseFragment implements IOKCallBack,PullT
         new Thread(new Runnable() {
             @Override
             public void run() {
+                page++;
                 if (page<=total_page) {
-                    page++;
                     stringBuffer=new StringBuffer();
                     stringBuffer.append(ADRESSURL).append("&page=").append(page);
                     OkHttpUtils.newInstance().start(stringBuffer.toString()).callback(new IOKCallBack() {
@@ -161,17 +167,21 @@ public class XinxikongFragment extends BaseFragment implements IOKCallBack,PullT
 
     @Override
     public void success(String result) {
-       gson=new Gson();
-        XinxiKongProductInfo xinxiKongProductInfo = gson.fromJson(result, XinxiKongProductInfo.class);
-        total_page = xinxiKongProductInfo.getData().getTotal_page();
-        if (xinxiKongProductInfo!=null) {
-            for (int i = 0; i < xinxiKongProductInfo.getData().getList().size(); i++) {
-                xinxinkonglist.add(xinxiKongProductInfo.getData().getList().get(i));
+        if (result != null) {
+            gson = new Gson();
+            {
+                XinxiKongProductInfo xinxiKongProductInfo = gson.fromJson(result, XinxiKongProductInfo.class);
+                total_page = xinxiKongProductInfo.getData().getTotal_page();
+                if (xinxiKongProductInfo != null) {
+                    for (int i = 0; i < xinxiKongProductInfo.getData().getList().size(); i++) {
+                        xinxinkonglist.add(xinxiKongProductInfo.getData().getList().get(i));
+                    }
+                }
             }
+            //刷新适配器
+            commonadapte = new CommonAdapter(xinxinkonglist, getActivity());
+            pulltorefresh.setAdapter(commonadapte);
+            commonadapte.notifyDataSetChanged();
         }
-        //刷新适配器
-        commonadapte=new CommonAdapter(xinxinkonglist,getActivity());
-        pulltorefresh.setAdapter(commonadapte);
-        commonadapte.notifyDataSetChanged();
     }
 }

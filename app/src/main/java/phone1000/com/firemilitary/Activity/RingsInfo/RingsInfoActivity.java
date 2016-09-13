@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import phone1000.com.firemilitary.Activity.TuijianInfo.WatchImageActivity;
 import phone1000.com.firemilitary.MainActivity;
 import phone1000.com.firemilitary.R;
 import phone1000.com.firemilitary.View.NoScrollExpandableListView;
@@ -200,7 +201,7 @@ public class RingsInfoActivity extends AppCompatActivity implements IOKCallBack{
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
+        public View getView(final int i, View view, ViewGroup viewGroup) {
             ViewHolder viewHolder;
             if (view==null){
                 view= LayoutInflater.from(RingsInfoActivity.this).inflate(R.layout.rings_info_list_item,viewGroup,false);
@@ -209,6 +210,18 @@ public class RingsInfoActivity extends AppCompatActivity implements IOKCallBack{
                 viewHolder= (ViewHolder) view.getTag();
             }
             Picasso.with(RingsInfoActivity.this).load(imgList.get(i)).into(viewHolder.imageView);
+            viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position1=i+1;
+                    Intent intent=new Intent(RingsInfoActivity.this,WatchImageActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putStringArrayList("arraylist",(ArrayList<String>)imgList);
+                    bundle.putInt("position",position1);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
             return view;
         }
 

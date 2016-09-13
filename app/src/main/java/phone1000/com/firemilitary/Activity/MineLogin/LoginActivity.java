@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import phone1000.com.firemilitary.MainActivity;
 import phone1000.com.firemilitary.R;
-import phone1000.com.firemilitary.dao.DBUtils;
+import phone1000.com.firemilitary.Utils.DBUtils;
 import phone1000.com.firemilitary.dao.User;
 
 

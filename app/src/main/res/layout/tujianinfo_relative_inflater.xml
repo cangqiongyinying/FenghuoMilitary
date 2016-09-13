@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<com.makeramen.roundedimageview.RoundedImageView
+    android:id="@+id/tuijianinfo_relative_image"
+    android:layout_width="0dp"
+    android:layout_weight="1.8"
+    app:riv_corner_radius="8dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginRight="5dp"
+    android:padding="2dp"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tuijianinfo_relative_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:maxLines="2"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/tuijianinfo_relative_img"
+                android:layout_width="wrap_content"
+                android:src="@drawable/tuijian_shouye_list_aritcle_icon"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tuijianinfo_relative_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_toRightOf="@+id/tuijianinfo_relative_img"
+                android:layout_alignBaseline="@+id/tuijianinfo_relative_img"
+                android:layout_centerVertical="true"
+                android:maxLines="1"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

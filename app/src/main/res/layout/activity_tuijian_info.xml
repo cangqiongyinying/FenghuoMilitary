@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_tuijian_info_relative_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="phone1000.com.firemilitary.Activity.TuijianInfo.TuijianInfoActivity">
+    <!--仿照Toolbar-->
+    <ProgressBar
+        android:id="@+id/activity_tuijian_info_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize">
+
+        <Button
+            android:id="@+id/activity_tuijian_info_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:drawableLeft="@drawable/nav_back"
+            android:paddingLeft="10dp"
+            android:text="返回"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/activity_tuijian_info_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="#00000000"
+            android:src="@drawable/alert_ziti_icon" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/video_content_bottom"
+        android:background="#66666666" />
+
+
+    <RelativeLayout
+        android:id="@+id/video_content_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/bottom_et"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_shape"
+            android:hint="说两句吧~"
+            android:padding="6dp" />
+
+        <RelativeLayout
+            android:id="@+id/bottom_discuss_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/bottom_et"
+            android:padding="10dp">
+
+
+            <ImageView
+                android:id="@+id/bottom_discuss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/zhengwen_toolbar_comment" />
+
+            <TextView
+                android:id="@+id/bottom_discuss_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/bottom_discuss"
+                android:text="1" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/bottom_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/bottom_discuss_rl"
+            android:src="@drawable/zhengwen_toolbar_fav" />
+
+    </RelativeLayout>
+
+    <!--整体布局  ScrollView放置组件,只能放一个-->
+    <ScrollView
+        android:id="@+id/scrollview_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_line"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#66666666" />
+
+            <TextView
+                android:id="@+id/activity_tuijian_info_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_tuijian_info_title"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/activity_tuijian_info_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/activity_tuijian_info_from_dateline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/activity_tuijian_info_from" />
+
+            </RelativeLayout>
+            <View
+                android:id="@+id/activity_tuijian_info_from_line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/activity_tuijian_info_from_dateline"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:background="#66666666"
+                android:layout_marginBottom="5dp"/>
+            <phone1000.com.firemilitary.CustomerView.CustomerListview
+                android:id="@+id/activity_tuijian_info_from_contentlistview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:divider="@null"
+                ></phone1000.com.firemilitary.CustomerView.CustomerListview>
+
+
+            <!--广告-->
+            <RelativeLayout
+                android:id="@+id/video_content_relations_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#66666666">
+
+                <TextView
+                    android:id="@+id/activity_tuijian_info_from_relations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:visibility="gone"
+                    android:padding="5dp"
+                    android:text="点击下方微信、朋友圈和微博把好文章分享给更多人，您的分享是我们的动力" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_tuijian_info_from_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/activity_tuijian_info_from_digcounts"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_shape"
+                    android:drawableLeft="@drawable/fenghuo_article_zan"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="25dp"
+                    android:text="0" />
+
+                <ImageButton
+                    android:id="@+id/activity_tuijian_info_from_weixin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_shape"
+                    android:src="@drawable/fenghuo_article_wechat" />
+
+                <ImageButton
+                    android:id="@+id/activity_tuijian_info_from_pengyouquan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_shape"
+                    android:src="@drawable/fenghuo_article_pyq" />
+
+
+                <ImageButton
+                    android:id="@+id/activity_tuijian_info_from_xinlang"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_shape"
+                    android:src="@drawable/fenghuo_article_weibo" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/activity_tuijian_xianggaun_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="25dp"
+                android:visibility="gone"
+                android:text="相关文章"
+                android:textColor="#0000ff" />
+
+            <LinearLayout
+                android:id="@+id/activity_tuijian_info_from_ll1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:visibility="gone"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/line_blue"
+                    android:layout_width="56dp"
+                    android:layout_height="1dp"
+                    android:background="#0000ff" />
+
+                <View
+                    android:id="@+id/line_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#666666"
+
+                    />
+
+            </LinearLayout>
+
+
+            <!--<ListView-->
+            <!--android:id="@+id/video_content_relations_lv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="12dp"-->
+            <!--android:layout_marginRight="12dp"-->
+            <!--android:layout_marginTop="5dp" />-->
+
+            <phone1000.com.firemilitary.CustomerView.CustomerListview
+                android:id="@+id/activity_tuijian_info_from_xiangguanlistview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="5dp" >
+            </phone1000.com.firemilitary.CustomerView.CustomerListview>
+
+            <LinearLayout
+                android:id="@+id/activity_tuijian_info_from_ll2"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#66666666"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:id="@+id/activity_tuijian_info_from_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:visibility="gone"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/activity_tuijian_info_from_discuss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全部评论"
+                    android:textColor="#0000ff" />
+
+                <TextView
+                    android:id="@+id/activity_tuijian_info_from_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/activity_tuijian_info_from_discuss" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_tuijian_info_from_ll3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:visibility="gone"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/line_blue2"
+                    android:layout_width="56dp"
+                    android:layout_height="1dp"
+                    android:background="#0000ff" />
+
+                <View
+                    android:id="@+id/line_grey2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#666666"
+
+                    />
+
+            </LinearLayout>
+
+
+            <!--自定义的ListView-->
+            <phone1000.com.firemilitary.CustomerView.CustomerListview
+                android:id="@+id/activity_tuijian_info_from_pinlunlistview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:divider="@drawable/putolistviewdiver"
+                android:visibility="visible">
+            </phone1000.com.firemilitary.CustomerView.CustomerListview>
+            <!--当评论为空时，显示此页-->
+            <TextView
+                android:id="@+id/activity_tuijian_info_from_pinlunmention"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:text="暂时还没有评论"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

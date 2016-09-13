@@ -1,15 +1,14 @@
 package phone1000.com.firemilitary.Fragment.TuijianFrag;
 
-import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -25,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import phone1000.com.firemilitary.Activity.TuijianInfo.TuijianInfoActivity;
 import phone1000.com.firemilitary.Fragment.BaseFragment;
 import phone1000.com.firemilitary.R;
 import phone1000.com.firemilitary.adapter.CommonAdapter;
@@ -94,6 +94,16 @@ public class ZhangZiShiFragment extends BaseFragment implements IOKCallBack,Pull
         View view=inflater.inflate(R.layout.fragment_zhang_zi_shi, container, false);
         putorefresh=(PullToRefreshListView)view.findViewById(R.id.zhangxishifragment_putorefreshlistview);
         putorefresh.setMode(PullToRefreshBase.Mode.BOTH);
+        putorefresh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), TuijianInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tid", xinxinkonglist.get(position-1).getTid());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
         //设置进入界面的进度条
         addEmptyView();
         //请求网络
@@ -123,12 +133,14 @@ public class ZhangZiShiFragment extends BaseFragment implements IOKCallBack,Pull
 
     @Override
     public void success(String result) {
-        gson=new Gson();
-        XinxiKongProductInfo xinxiKongProductInfo = gson.fromJson(result, XinxiKongProductInfo.class);
-        total_page = xinxiKongProductInfo.getData().getTotal_page();
-        if (xinxiKongProductInfo!=null) {
-            for (int i = 0; i < xinxiKongProductInfo.getData().getList().size(); i++) {
-                xinxinkonglist.add(xinxiKongProductInfo.getData().getList().get(i));
+        if (result!=null) {
+            gson = new Gson();
+            XinxiKongProductInfo xinxiKongProductInfo = gson.fromJson(result, XinxiKongProductInfo.class);
+            total_page = xinxiKongProductInfo.getData().getTotal_page();
+            if (xinxiKongProductInfo != null) {
+                for (int i = 0; i < xinxiKongProductInfo.getData().getList().size(); i++) {
+                    xinxinkonglist.add(xinxiKongProductInfo.getData().getList().get(i));
+                }
             }
         }
         //刷新适配器
@@ -171,8 +183,8 @@ public class ZhangZiShiFragment extends BaseFragment implements IOKCallBack,Pull
 
             @Override
             public void run() {
+                page++;
                 if (page <= total_page) {
-                    page++;
                     stringBuffer=new StringBuffer();
                     stringBuffer.append(ADRESSURL).append("&page=").append(page);
                     OkHttpUtils.newInstance().start(stringBuffer.toString()).callback(new IOKCallBack() {

@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="phone1000.com.firemilitary.Fragment.TuijianFragment">
    <LinearLayout
+       android:id="@+id/tuijiamfragment_linearlayout"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:orientation="vertical">
@@ -16,8 +16,7 @@
                android:id="@+id/tuijiamfragment_tablelayout"
                android:layout_width="0dp"
                android:layout_weight="7"
-               app:tabMode="scrollable"
-               android:layout_height="wrap_content"/>
+               android:layout_height="wrap_content"></android.support.design.widget.TabLayout>
            <ImageButton
                android:id="@+id/tuijianfragment_imagebutton"
                android:layout_width="0dp"
@@ -30,7 +29,13 @@
        <android.support.v4.view.ViewPager
            android:id="@+id/tuijianfragment_viewpager"
            android:layout_width="match_parent"
-           android:layout_height="match_parent"/>
+           android:layout_height="match_parent"></android.support.v4.view.ViewPager>
    </LinearLayout>
 
+    <!--放置右上角的dragview-->
+    <phone1000.com.firemilitary.easytagdragview.EasyTipDragView
+        android:id="@+id/tuijianfragment_esaytipdragview"
+        android:layout_width="match_parent"
+        android:background="#dddddd"
+        android:layout_height="match_parent"></phone1000.com.firemilitary.easytagdragview.EasyTipDragView>
 </FrameLayout>

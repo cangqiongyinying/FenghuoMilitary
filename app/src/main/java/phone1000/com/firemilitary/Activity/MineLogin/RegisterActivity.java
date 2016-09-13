@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import phone1000.com.firemilitary.R;
-import phone1000.com.firemilitary.dao.DBUtils;
+import phone1000.com.firemilitary.Utils.DBUtils;
 import phone1000.com.firemilitary.dao.User;
 
 public class RegisterActivity extends AppCompatActivity {
