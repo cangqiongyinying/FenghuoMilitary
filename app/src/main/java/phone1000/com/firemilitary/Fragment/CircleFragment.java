@@ -352,8 +352,15 @@ public class CircleFragment extends BaseFragment implements IOKCallBack{
             }else {
                 viewHolder= (ViewHolder) view.getTag();
             }
-            viewHolder.imageView.setFocusable(false);
             Picasso.with(mContext).load(topicListBean.getImage_list().get(i).getImage_middle()).into(viewHolder.imageView);
+            viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(mContext, RingsInfoActivity.class);
+                    intent.putExtra("tid",topicListBean.getTid());
+                    startActivity(intent);
+                }
+            });
             return view;
         }
 

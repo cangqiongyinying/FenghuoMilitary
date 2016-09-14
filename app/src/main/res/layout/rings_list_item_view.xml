@@ -84,6 +84,5 @@
         android:id="@+id/rings_item_img_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="false"
         android:numColumns="3"/>
 </LinearLayout>

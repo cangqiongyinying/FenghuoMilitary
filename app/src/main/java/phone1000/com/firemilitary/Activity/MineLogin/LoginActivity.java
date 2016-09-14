@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initView() {
         accountEt= (EditText) findViewById(R.id.login_user_name);
+        accountEt.setText(mSp.getString("account",""));
         passwordEt= (EditText) findViewById(R.id.login_user_pass);
         register= (TextView) findViewById(R.id.login_register);
         register.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("account",account);
                 editor.putString("password",password);
                 editor.commit();
-                passwordEt.setText("");
+                finish();
                 break;
             }else {
                 loginSuccess=false;

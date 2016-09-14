@@ -105,16 +105,6 @@ public class RingsInfoActivity extends AppCompatActivity implements IOKCallBack{
         tid=intent.getStringExtra("tid");
     }
 
-//    private void addEmptyView(){
-//        LinearLayout.LayoutParams layoutParams=
-//                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        layoutParams.gravity= Gravity.CENTER;
-//        ProgressBar progressBar =new ProgressBar(this);
-//        progressBar.setIndeterminateDrawable(getResources().getDrawable(R.drawable.progress_loading));
-//        progressBar.setLayoutParams(layoutParams);
-//        ((ViewGroup)infoListView.getParent()).addView(progressBar);
-//        infoListView.setEmptyView(progressBar);
-//    }
     @Override
     public void success(String result) {
         httpLoading.setVisibility(View.GONE);
@@ -139,7 +129,17 @@ public class RingsInfoActivity extends AppCompatActivity implements IOKCallBack{
         dateLine= (TextView) listHeadView.findViewById(R.id.rings_info_date_line);
         infoTitle= (TextView) listHeadView.findViewById(R.id.rings_info_title);
         infoContent= (TextView) listHeadView.findViewById(R.id.rings_info_content);
-
+        guanzhuBtn= (Button) listHeadView.findViewById(R.id.rings_info_guanzhu);
+        guanzhuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (guanzhuBtn.isSelected()){
+                    guanzhuBtn.setSelected(false);
+                }else {
+                    guanzhuBtn.setSelected(true);
+                }
+            }
+        });
     }
 
     private void updateFootView() {
