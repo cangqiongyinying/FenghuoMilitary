@@ -1,26 +1,14 @@
 [
     {
-        "merged": "E:\\AndroidStudioProjects\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
-        "source": "E:\\AndroidStudioProjects\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
+        "merged": "D:\\AndroidProject\\fenghuojunshi\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
+        "source": "D:\\AndroidProject\\fenghuojunshi\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
     },
     {
-        "merged": "E:\\AndroidStudioProjects\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
-        "source": "E:\\AndroidStudioProjects\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
+        "merged": "D:\\AndroidProject\\fenghuojunshi\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
+        "source": "D:\\AndroidProject\\fenghuojunshi\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
     },
     {
-        "merged": "E:\\AndroidStudioProjects\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
-        "source": "E:\\AndroidStudioProjects\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
-    },
-    {
-        "merged": "E:\\AndroidStudioProjects\\GiftSpirit\\refreshlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
-        "source": "E:\\AndroidStudioProjects\\GiftSpirit\\refreshlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
-    },
-    {
-        "merged": "E:\\AndroidStudioProjects\\GiftSpirit\\refreshlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
-        "source": "E:\\AndroidStudioProjects\\GiftSpirit\\refreshlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
-    },
-    {
-        "merged": "E:\\AndroidStudioProjects\\GiftSpirit\\refreshlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
-        "source": "E:\\AndroidStudioProjects\\GiftSpirit\\refreshlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
+        "merged": "D:\\AndroidProject\\fenghuojunshi\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
+        "source": "D:\\AndroidProject\\fenghuojunshi\\FenghuoMilitary\\refreshlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
     }
 ]

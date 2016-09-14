@@ -1,14 +1,18 @@
 package phone1000.com.firemilitary.Activity.TuijianInfo;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -92,29 +96,16 @@ public class TuijianInfoActivity extends AppCompatActivity implements IOKCallBac
     private RadioButton popuwindowRadiobuttonmidel;
     private RadioButton popuwindowRadiobuttonbig;
     private RadioButton popuwindowRadiobuttonenough;
-    private TextView frontcontentText;
-    private Handler handler=new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what==0){
-                frontcontentText.setTextSize(R.dimen.text_size_small1);
-            }
-            if (msg.what==1){
-                frontcontentText.setTextSize(R.dimen.text_size_medil);
-            }
-            if (msg.what==2){
-                frontcontentText.setTextSize(R.dimen.text_size_big);
-            }
-            if (msg.what==3){
-                frontcontentText.setTextSize(R.dimen.text_size_enoughbig);
-            }
-        }
-    };
+    private SharedPreferences sharePrefrence;
+    private SharedPreferences.Editor shareprefrenceEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tuijian_info);
+        //得到SharePrefrence对象
+        sharePrefrence=getSharedPreferences("textsize",MODE_WORLD_WRITEABLE);
+        shareprefrenceEdit = sharePrefrence.edit();
         Bundle extras = getIntent().getExtras();
         tid = extras.getString("tid");
         //初始化视图
@@ -125,6 +116,26 @@ public class TuijianInfoActivity extends AppCompatActivity implements IOKCallBac
 
     private void getHttp() {
         OkHttpUtils.newInstance().start(ADRESSURL+Integer.valueOf(tid)).callback(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (sharePrefrence.getInt("position",0)==0){
+            popuwindowRadiobuttonmidel.setChecked(true);
+        }if (sharePrefrence.getInt("position",0)==1){
+            popuwindowRadiobuttonsmall.setChecked(true);
+        }
+        if (sharePrefrence.getInt("position",0)==2){
+            popuwindowRadiobuttonmidel.setChecked(true);
+        }
+        if (sharePrefrence.getInt("position",0)==3){
+            popuwindowRadiobuttonbig.setChecked(true);
+        }
+        if (sharePrefrence.getInt("position",0)==4){
+            popuwindowRadiobuttonenough.setChecked(true);
+            Log.i("SSWW", "onResume444: "+sharePrefrence.getInt("position",0));
+        }
     }
 
     private void initView() {
@@ -152,8 +163,6 @@ public class TuijianInfoActivity extends AppCompatActivity implements IOKCallBac
 
 
 
-
-
         //设置字体的大小，亮度，夜间模式
         setting=(ImageView)findViewById(R.id.activity_tuijian_info_setting);
         View view=layoutInflater.inflate(R.layout.tuijianinfoactivity_inflater_popuwindow,null);
@@ -162,27 +171,43 @@ public class TuijianInfoActivity extends AppCompatActivity implements IOKCallBac
         popuwindowRadiobuttonmidel=(RadioButton)view.findViewById(R.id.tuijianinfo_popuwindow_radiobuttonmidel);
         popuwindowRadiobuttonbig=(RadioButton)view.findViewById(R.id.tuijianinfo_popuwindow_radiobuttonbig);
         popuwindowRadiobuttonenough=(RadioButton)view.findViewById(R.id.tuijianinfo_popuwindow_radiobuttonenoughbig);
+
         //找到设置显示字体的控件
-        View inflate = layoutInflater.inflate(R.layout.tuijianinfoactivity_inflater1, null);
-        frontcontentText = (TextView)inflate.findViewById(R.id.tuijianinfoactivity_inflater1_text);
         popuwindowRadiogroup=(RadioGroup)view.findViewById(R.id.tuijianinfo_popuwindow_radiogroup);
         popuwindowRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @TargetApi(Build.VERSION_CODES.N)
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
                     case R.id.tuijianinfo_popuwindow_radiobuttonsmall:
-                        handler.sendEmptyMessage(0);
+                        shareprefrenceEdit.putInt("position",1);
+
+                        if (!contentlist.isEmpty()){
+                            tuijianContentInfoAdapter.notifyDataSetChanged();
+                        }
                         break;
                     case R.id.tuijianinfo_popuwindow_radiobuttonmidel:
-                        handler.sendEmptyMessage(1);
+                        shareprefrenceEdit.putInt("position",2);
+
+                        if (!contentlist.isEmpty()){
+                            tuijianContentInfoAdapter.notifyDataSetChanged();
+                        }
                         break;
                     case R.id.tuijianinfo_popuwindow_radiobuttonbig:
-                        handler.sendEmptyMessage(2);
+                        shareprefrenceEdit.putInt("position",3);
+
+                        if (!contentlist.isEmpty()){
+                            tuijianContentInfoAdapter.notifyDataSetChanged();
+                        }
                         break;
                     case R.id.tuijianinfo_popuwindow_radiobuttonenoughbig:
-                        handler.sendEmptyMessage(3);
+                        shareprefrenceEdit.putInt("position",4);
+                        if (!contentlist.isEmpty()){
+                            tuijianContentInfoAdapter.notifyDataSetChanged();
+                        }
                         break;
                 }
+                shareprefrenceEdit.commit();
             }
         });
 
@@ -467,6 +492,20 @@ public class TuijianInfoActivity extends AppCompatActivity implements IOKCallBac
             final TuijianInfoActivityProductInfo.DataBean.ContentBean contentBean = contentlist.get(position);
             switch (itemViewType) {
                 case 1:
+                    if (sharePrefrence!=null){
+                        if (popuwindowRadiobuttonsmall.isChecked()){
+                            tuijianViewHolder1.textView.setTextSize(12);
+                        }
+                        if (popuwindowRadiobuttonmidel.isChecked()){
+                            tuijianViewHolder1.textView.setTextSize(15);
+                        }
+                        if (popuwindowRadiobuttonbig.isChecked()){
+                            tuijianViewHolder1.textView.setTextSize(18);
+                        }
+                        if (popuwindowRadiobuttonenough.isChecked()){
+                            tuijianViewHolder1.textView.setTextSize(22);
+                        }
+                    }
                     tuijianViewHolder1.textView.setText(contentBean.getContent());
                     break;
                 case 2:
