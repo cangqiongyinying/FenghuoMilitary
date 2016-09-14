@@ -57,7 +57,7 @@ public class VideoContentDiscussLvAdapter extends BaseAdapter {
             replyListViewHolder = (ReplyListViewHolder) view.getTag();
         }
         //数据映射
-        VideoContentInfo.DataBean.ReplyListBean list = replyListBeen.get(position);
+        final VideoContentInfo.DataBean.ReplyListBean list = replyListBeen.get(position);
         replyListViewHolder.nickname.setText(list.getNickname());
         replyListViewHolder.role_name.setText("(" + list.getRole_name() + ")");
         replyListViewHolder.dateline.setText(list.getDateline());

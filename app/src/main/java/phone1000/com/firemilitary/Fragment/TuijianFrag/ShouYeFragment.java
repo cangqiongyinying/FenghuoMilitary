@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.Set;
 
 import phone1000.com.firemilitary.Activity.TuijianInfo.TuijianInfoActivity;
+import phone1000.com.firemilitary.Activity.ViedoInfo.VideoContentActivity;
 import phone1000.com.firemilitary.Fragment.BaseFragment;
 import phone1000.com.firemilitary.R;
 import phone1000.com.firemilitary.TimeFormatTool.TimeFormatTool;
@@ -84,7 +85,7 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
                 toast = new Toast(getActivity());
                 View view = LayoutInflater.from(getActivity()).inflate(R.layout.shouyefragment_inflater_toast, null);
                 TextView textView = (TextView) view.findViewById(R.id.shouyefragment_inflater_toast_text);
-                toast.setGravity(Gravity.TOP, 0, 60);
+                toast.setGravity(Gravity.TOP, 0, 70);
                 toast.setDuration(Toast.LENGTH_SHORT);
                 textView.setText("本次共刷新了" + obj + "条数据");
                 toast.setView(view);
@@ -294,7 +295,7 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
                     return new MyConvientBannerHolder();
                 }
             }, convientlist).setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL).
-                    setPageIndicator(new int[]{R.drawable.convientbannerindictor, R.drawable.convientbannerindictor}).startTurning(3000);
+                    setPageIndicator(new int[]{R.drawable.convientbannerindictor, R.drawable.convientbannerindictorwhite}).startTurning(3000);
             //添加putorefreshlistview的数据源
             if (shouYeProductInfo != null) {
                 for (int j = 0; j < shouYeProductInfo.getData().getAll_data().getRecd_topic().size(); j++) {
@@ -509,6 +510,16 @@ public class ShouYeFragment extends BaseFragment implements IOKCallBack, PullToR
                     viewHolder4.source.setText(recdTopicBean.getList_from());
                     viewHolder4.reply.setText(recdTopicBean.getReplys() + "");
                     Picasso.with(getActivity()).load(recdTopicBean.getImage_list()).into(viewHolder4.imageView);
+                    convertView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), VideoContentActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("tid", recdTopicBean.getTid());
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    });
                     break;
             }
             return convertView;

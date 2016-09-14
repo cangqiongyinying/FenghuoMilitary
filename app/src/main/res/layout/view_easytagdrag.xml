@@ -62,8 +62,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="@color/colorWhite"
-            android:gravity="left"
+            android:background="#00000000"
+            android:gravity="center"
+            android:textColor="#e61818"
             android:text="长按排序或删除"
             />
         <RelativeLayout
@@ -72,7 +73,7 @@
             android:layout_width="match_parent"
             android:paddingTop="4dp"
             android:layout_height="wrap_content">
-            <TextView
+            <Button
                 android:id="@+id/more_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,6 +81,7 @@
                 android:background="@color/gray_item"
                 android:textColor="#000000"
                 android:padding="8dp"
+                android:gravity="left|center_vertical"
                 android:text="添加更多栏目"
                 />
             <GridView

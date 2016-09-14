@@ -206,6 +206,7 @@ public class PlayerFragment extends BaseFragment {
 //        mListView = (ListView) findViewById(R.id.video_listView);
         mPullToRefreshListView = (PullToRefreshListView)view.findViewById(R.id.video_listView);
         mPullToRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);
+
 //        mListView = mPullToRefreshListView.getRefreshableView();
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("正在加载中...");

@@ -1,6 +1,8 @@
 package phone1000.com.firemilitary.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
+import phone1000.com.firemilitary.Activity.TuijianInfo.TuijianInfoActivity;
 import phone1000.com.firemilitary.R;
 import phone1000.com.firemilitary.bean.VideoContentInfo;
 
@@ -60,7 +63,7 @@ public class VideoContentLvAdapter extends BaseAdapter {
         }
 
         //数据映射
-        VideoContentInfo.DataBean.RelationsBean list = relationsBeen.get(position);
+        final VideoContentInfo.DataBean.RelationsBean list = relationsBeen.get(position);
         viewHolder.relationsTitle.setText(list.getTitle());
         viewHolder.relationsFrom.setText(" " + list.getFrom());
         //下载图片  使用Picasso类库加载网络图片，然后用Transformation方法转化,这是一款支持圆角，椭圆，圆形的RoundedImageView类库，可以生成ImageView和Drawable。
@@ -71,7 +74,16 @@ public class VideoContentLvAdapter extends BaseAdapter {
                 .build();
 //        Picasso.with(mContext).load(img_url).into(viewHolder.relationsImageView);
         Picasso.with(mContext).load(img_url).fit().transform(transformation).into(viewHolder.relationsImageView);
-
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, TuijianInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tid", list.getTid());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            }
+        });
         return view;
     }
 

@@ -16,5 +16,6 @@
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/video_listView"
         android:layout_width="match_parent"
+        android:divider="@drawable/putolistviewdiver"
         android:layout_height="match_parent" />
 </LinearLayout>
