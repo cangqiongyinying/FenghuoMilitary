@@ -134,7 +134,6 @@ public class TuijianInfoActivity extends AppCompatActivity implements IOKCallBac
         }
         if (sharePrefrence.getInt("position",0)==4){
             popuwindowRadiobuttonenough.setChecked(true);
-            Log.i("SSWW", "onResume444: "+sharePrefrence.getInt("position",0));
         }
     }
 
@@ -175,9 +174,9 @@ public class TuijianInfoActivity extends AppCompatActivity implements IOKCallBac
         //找到设置显示字体的控件
         popuwindowRadiogroup=(RadioGroup)view.findViewById(R.id.tuijianinfo_popuwindow_radiogroup);
         popuwindowRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @TargetApi(Build.VERSION_CODES.N)
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                shareprefrenceEdit.remove("position").commit();
                 switch (checkedId){
                     case R.id.tuijianinfo_popuwindow_radiobuttonsmall:
                         shareprefrenceEdit.putInt("position",1);
@@ -202,6 +201,7 @@ public class TuijianInfoActivity extends AppCompatActivity implements IOKCallBac
                         break;
                     case R.id.tuijianinfo_popuwindow_radiobuttonenoughbig:
                         shareprefrenceEdit.putInt("position",4);
+
                         if (!contentlist.isEmpty()){
                             tuijianContentInfoAdapter.notifyDataSetChanged();
                         }
