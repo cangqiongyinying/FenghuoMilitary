@@ -13,6 +13,7 @@ import phone1000.com.firemilitary.Utils.DataCleanUtils;
 public class SetActivity extends AppCompatActivity {
     private RelativeLayout clearCache;
     private TextView cacheSize;
+    private TextView backIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,13 @@ public class SetActivity extends AppCompatActivity {
 
     private void initView() {
         clearCache= (RelativeLayout) findViewById(R.id.clear_cache);
+        backIcon= (TextView) findViewById(R.id.set_back);
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         clearCache.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

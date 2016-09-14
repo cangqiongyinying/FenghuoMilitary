@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.liang.OkHttpLibrary.IOKCallBack;
@@ -88,6 +89,16 @@ public class RingsInfoActivity extends AppCompatActivity implements IOKCallBack{
         httpLoading= (ProgressBar) findViewById(R.id.rings_info_loading);
         inputComent= (EditText) findViewById(R.id.input_comment);
         zan= (ImageView) findViewById(R.id.rings_info_zan);
+        zan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!zan.isSelected()){
+                    zan.setSelected(true);
+                }else {
+                    Toast.makeText(RingsInfoActivity.this,"您已经赞过了",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         share = (ImageView) findViewById(R.id.rings_info_share);
 //        addEmptyView();
         infoListView.addHeaderView(listHeadView);

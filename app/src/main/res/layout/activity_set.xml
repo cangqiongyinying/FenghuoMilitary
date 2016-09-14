@@ -12,7 +12,7 @@
         android:background="@color/colorWhite"
         android:padding="10dp">
         <TextView
-            android:id="@+id/login_back"
+            android:id="@+id/set_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/nav_back"
