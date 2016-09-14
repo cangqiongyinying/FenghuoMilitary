@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("account",account);
                 editor.putString("password",password);
                 editor.commit();
+                passwordEt.setText("");
                 break;
             }else {
                 loginSuccess=false;
